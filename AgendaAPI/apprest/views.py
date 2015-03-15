@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
-from apprest.models import Contacto
-from apprest.serializers import ContactoSerializer
+from apprest.models import Contacto,Usuario
+from apprest.serializers import ContactoSerializer, UsuarioSerializer
 
 # Create your views here.
 class JSONResponse(HttpResponse):
@@ -61,3 +61,26 @@ def contacto_detail(request, pk):
     elif request.method == 'DELETE':
         contacto.delete()
         return HttpResponse(status=204)
+
+def usuarios(request,pk):
+
+    try:
+        usuario = Usuario.objects.get(pk = pk)
+    except Usuario.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = UsuarioSerializer(usuario)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = UsuarioSerializer(snippet, data = data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+    elif request.method == 'DELETE':
+        usuario.delete()
+        return HttpResponse(status=204)
+
