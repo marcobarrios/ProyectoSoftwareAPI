@@ -46,15 +46,15 @@ class Evento(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
-class Usuario(models.Model):
+#class Usuario(models.Model):
     #idUsuario = models.ForeignKey(primary_key=True,unique=True,null=False)
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    contrasenia = models.CharField(max_length=20,null=False)
-    imagen = models.ImageField(upload_to="Usuario",null=True)
+#    nombre = models.CharField(max_length=50)
+#    apellido = models.CharField(max_length=50)
+#    contrasenia = models.CharField(max_length=20,null=False)
+#    imagen = models.ImageField(upload_to="Usuario",null=True)
     #fechaNacimiento = models.DateField(auto_now_add=True)
-    correo = models.URLField(null=True)
+#    correo = models.URLField(null=True)
 
-    def __unicode__(self):
-		return self.nombre
+#   def __unicode__(self):
+#		return self.nombre
 	

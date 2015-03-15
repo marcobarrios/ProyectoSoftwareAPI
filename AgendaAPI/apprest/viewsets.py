@@ -1,5 +1,5 @@
-from .models import Contacto, Telefono, TipoTelefono, Usuario
-from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer, UsuarioSerializer
+from .models import Contacto, Telefono, TipoTelefono, DetalleListaContacto, Evento
+from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer, DetalleListaContactoSerializer, EventoSerializer
 from rest_framework import viewsets
  
 class ContactoViewSet(viewsets.ModelViewSet):
@@ -14,6 +14,10 @@ class TipoTelefonoViewSet(viewsets.ModelViewSet):
 	serializer_class = TipoTelefonoSerializer
 	queryset = TipoTelefono.objects.all()
 
-class UsuarioViewSet(viewsets.ModelViewSet):
-    serializer_class = UsuarioSerializer
-    queryset = Usuario.objects.all()
+class ListaContactosViewSet(viewsets.ModelViewSet):
+    serializer_class = DetalleListaContactoSerializer
+    queryset = DetalleListaContacto.objects.all()
+
+class EventoViewSet(viewsets.ModelViewSet):
+    serializer_class = EventoSerializer
+    queryset = Evento.objects.all()
