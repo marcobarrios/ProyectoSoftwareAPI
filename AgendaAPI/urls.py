@@ -2,13 +2,15 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
  
-from apprest.viewsets import ContactoViewSet, TelefonoViewSet, TipoTelefonoViewSet, EventoViewSet
+from apprest.viewsets import ContactoViewSet, TelefonoViewSet, TipoTelefonoViewSet, EventoViewSet, DetalleListaContactosViewSet, ListaContactoViewSet
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'contacto', ContactoViewSet)
 router.register(r'telefono', TelefonoViewSet)
 router.register(r'tipotelefono', TipoTelefonoViewSet)
 router.register(r'evento', EventoViewSet)
+router.register(r'detalleListaContacto', DetalleListaContactosViewSet)
+router.register(r'listacontacto', ListaContactoViewSet)
  
 urlpatterns = patterns('',
 	# Examples:
