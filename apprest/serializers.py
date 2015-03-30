@@ -15,7 +15,7 @@ class ContactoSerializer(serializers.ModelSerializer):
 class DetalleListaContactoSerializer (serializers.ModelSerializer):
     class Meta:
         model = DetalleListaContacto
-        fields = ('idListaContacto', 'idContacto',)
+        fields = ('id', 'id',)
 
 class TipoTelefonoSerializer(serializers.ModelSerializer):
 	class Meta:
