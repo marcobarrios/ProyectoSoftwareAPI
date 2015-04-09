@@ -1,7 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import patterns, include, url
+from rest_framework.urlpatterns import format_suffix_patterns
 from apprest import views
 
 urlpatterns = [
-    url(r'^contactos/$', views.snippet_list),
-    url(r'^contacto/(?P<pk>[0-9]+)/$', views.snippet_detail),
+    url(r'^usuarios/$', views.usuario_list.as_view()),
+    url(r'^usuario/(?P<pk>[0-9]+)/$', views.Usuario_details.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

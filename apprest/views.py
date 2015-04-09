@@ -8,13 +8,19 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
-from apprest.models import Contacto, DetalleListaContacto, ListaContacto, TipoTelefono, Telefono, Evento, Usuario
-from apprest.serializers import ContactoSerializer, DetalleListaContactoSerializer, ListaContactoSerializer, TipoTelefonoSerializer, TelefonoSerializer, EventoSerializer, UsuarioSerializer
+from apprest.models import Contacto, ListaContacto, TipoTelefono, Telefono, Evento, Usuario
+from apprest.serializers import ContactoSerializer, ListaContactoSerializer, TipoTelefonoSerializer, TelefonoSerializer, EventoSerializer, UsuarioSerializer
+from .permissions import IsOwnerOrReadOnly 
 
 # Create your views here.
 
 
 class usuario_list(APIView):
+#    permission_classes = (IsOwnerOrReadOnly,)
+
+#    def pre_save(self, obj): 
+#       obj.owner = self.request.user
+
     def get(self, request, format=None):
         usuario = Usuario.objects.all()
         serializer = UsuarioSerializer(usuario, many=True)
@@ -75,20 +81,6 @@ class listaContactos_list(APIView):
 
     def post(self, request, format=None):
         serializer = ListaContactoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class Lista_detail_list(APIView):
-    def get(self, request, format=None):
-        lista = DetalleListaContacto.object.all()
-        serializer = DetalleListaContactoSerializer(lista, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = DetalleListaContactoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -186,32 +178,6 @@ class contacto_detail(APIView):
     def delete(self, request, pk, format=None):
         contacto = self.get_object(pk=pk)
         contacto.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class detallesLista_detail(APIView):
-    def get_obect(self, pk):
-        try:
-            return DetalleListaContacto.objects.get(pk=pk)
-        except DetalleListaContacto.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        detalle = self.get_obect(pk=pk)
-        serializer = DetalleListaContactoSerializer(detalle)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        detalle = self.get_obect(pk=pk)
-        serializer = DetalleListaContactoSerializer(detalle, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        detalle = self.get_obect(pk=pk)
-        detalle.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 

@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Usuario(models.Model):    
+    #owner = models.ForeignKey('auth.User', related_name='snippets')
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     #imagen = models.ImageField(upload_to="Usuario",null=True)
@@ -15,6 +16,8 @@ class Usuario(models.Model):
 class ListaContacto(models.Model):
     usuario = models.ForeignKey(Usuario)
     nombreLista = models.CharField(max_length=50)
+    def __unicode__(self):
+        return self.nombreLista
 
 
 class Contacto(models.Model):
@@ -24,14 +27,10 @@ class Contacto(models.Model):
     fechaNacimiento = models.DateField(null=True)
     imagen = models.ImageField(upload_to="contacto", null=True)
     web = models.URLField(null=True)
+    listaContacto = models.ManyToManyField(ListaContacto)
 
     def __unicode__(self):
         return self.nombre
-
-
-class DetalleListaContacto(models.Model):
-    listaContacto = models.ForeignKey(ListaContacto)
-    contacto = models.ForeignKey(Contacto)
 
 
 class TipoTelefono(models.Model):
@@ -51,12 +50,12 @@ class Telefono(models.Model):
 
 
 class Evento(models.Model):
-    # usuario = models.ForeignKey(User)
+    usuario = models.ForeignKey(Usuario)
     nombre = models.TextField(max_length=100)
     ubicacion = models.TextField(max_length=100)
     fechaInicio = models.DateTimeField()
     fechaFin = models.DateTimeField()
-    # todoDia = models.BooleanField()
+    #todoDia = models.BooleanField()
 
     def __unicode__(self):
         return self.nombre
