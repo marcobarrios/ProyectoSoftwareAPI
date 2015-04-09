@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import Contacto, Telefono, TipoTelefono, ListaContacto, DetalleListaContacto, Evento
+from .models import Contacto, Telefono, TipoTelefono, ListaContacto, DetalleListaContacto, Evento , Usuario
 
 
 class ListaContactoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListaContacto
-        fields = ('id', 'nombreLista',)
+        fields = ('id','usuario', 'nombreLista',)
 
 
 class ContactoSerializer(serializers.ModelSerializer):
@@ -37,10 +37,10 @@ class EventoSerializer(serializers.ModelSerializer):
         model = Evento
         fields = ('id', 'nombre', 'ubicacion', 'fechaInicio', 'fechaFin',)
 
-# class UsuarioSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model  = Usuario
-#        fields = ('nombre', 'apellido', 'contrasenia', 'imagen', 'correo',)
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Usuario
+        fields = ('nombre', 'apellido',)
 
 
 

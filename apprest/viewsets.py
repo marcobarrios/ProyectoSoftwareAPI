@@ -1,6 +1,6 @@
-from .models import Contacto, Telefono, TipoTelefono, DetalleListaContacto, Evento, ListaContacto
+from .models import Contacto, Telefono, TipoTelefono, DetalleListaContacto, Evento, ListaContacto , Usuario
 from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer, DetalleListaContactoSerializer, \
-    EventoSerializer, ListaContactoSerializer
+    EventoSerializer, ListaContactoSerializer , UsuarioSerializer
 from rest_framework import viewsets
 
 
@@ -32,4 +32,11 @@ class DetalleListaContactosViewSet(viewsets.ModelViewSet):
 class ListaContactoViewSet(viewsets.ModelViewSet):
     serializer_class = ListaContactoSerializer
     queryset = ListaContacto.objects.all()
+
+class UsuarioViewSet(viewsets.ModelViewSet):
+    serializer_class = UsuarioSerializer
+    queryset = Usuario.objects.all()
+
+
+
 
