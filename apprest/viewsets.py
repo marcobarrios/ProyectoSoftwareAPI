@@ -25,6 +25,10 @@ class ListaContactoViewSet(viewsets.ModelViewSet):
         print request.user
         return super(ListaContactoViewSet,self).list(request,*args,**kwargs)
 
+    def get_queryset(self):
+        queryset = self.queryset.filter(usuario = self.request.user)
+        return queryset
+
 
 
 class ContactoViewSet(viewsets.ModelViewSet):
