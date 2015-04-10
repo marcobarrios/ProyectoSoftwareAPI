@@ -22,7 +22,6 @@ class ListaContactoViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
 
     def list(self, request, *args, **kwargs):
-        print request.user
         return super(ListaContactoViewSet,self).list(request,*args,**kwargs)
 
 
