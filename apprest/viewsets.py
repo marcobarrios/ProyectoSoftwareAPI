@@ -15,6 +15,10 @@ class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     lookup_field = 'id'
 
+    def get_queryset(self):
+        queryset = self.queryset.filter(usuario = self.request.user)
+        return queryset
+
 
 class ListaContactoViewSet(viewsets.ModelViewSet):
     serializer_class = ListaContactoSerializer
