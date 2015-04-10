@@ -1,20 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
-class Usuario(models.Model):    
-    #owner = models.ForeignKey('auth.User', related_name='snippets')
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    #imagen = models.ImageField(upload_to="Usuario",null=True)
-    #fechaNacimiento = models.DateField(auto_now_add=True)
-    #correo = models.URLField(null=True)
-    def __unicode__(self):
-        return self.nombre
-
-
 class ListaContacto(models.Model):
-    usuario = models.ForeignKey(Usuario)
+    usuario = models.ForeignKey(User)
     nombreLista = models.CharField(max_length=50)
     def __unicode__(self):
         return self.nombreLista
@@ -50,12 +40,12 @@ class Telefono(models.Model):
 
 
 class Evento(models.Model):
-    usuario = models.ForeignKey(Usuario)
+    usuario = models.ForeignKey(User)
     nombre = models.TextField(max_length=100)
     ubicacion = models.TextField(max_length=100)
     fechaInicio = models.DateTimeField()
     fechaFin = models.DateTimeField()
-    #todoDia = models.BooleanField()
+    todoDia = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.nombre

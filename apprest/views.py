@@ -8,21 +8,18 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+from django.contrib.auth.models import User
+
 from apprest.models import Contacto, ListaContacto, TipoTelefono, Telefono, Evento, Usuario
-from apprest.serializers import ContactoSerializer, ListaContactoSerializer, TipoTelefonoSerializer, TelefonoSerializer, EventoSerializer, UsuarioSerializer
+from apprest.serializers import ContactoSerializer, ListaContactoSerializer, TipoTelefonoSerializer, TelefonoSerializer, EventoSerializer, UsuarioSerializer, UserSerializer
 from .permissions import IsOwnerOrReadOnly 
 
 # Create your views here.
 
-
-class usuario_list(APIView):
-#    permission_classes = (IsOwnerOrReadOnly,)
-
-#    def pre_save(self, obj): 
-#       obj.owner = self.request.user
-
+class Usuario_list(APIView):
+    serializer_class = UserSerializer
     def get(self, request, format=None):
-        usuario = Usuario.objects.all()
+        usuario = User.objects.all()
         serializer = UsuarioSerializer(usuario, many=True)
         return Response(serializer.data)
 
@@ -31,23 +28,24 @@ class usuario_list(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
 
 class Usuario_details(APIView):
     def get_object(self, pk):
         try:
-            return Usuario.objects.get(pk=pk)
-        except Usuario.DoesNotExist:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         usuario = self.get_object(pk=pk)
-        serializer = UsuarioSerializer(usuario)
+        serializer = UserSerializer(usuario)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         usuario = self.get_object(pk=pk)
-        serializer = TelefonoSerializer(usuario, data=request.data)
+        serializer = UserSerializer(usuario, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -124,6 +122,8 @@ class evento_list(APIView):
     def post(self, request, format=None):
         serializer = EventoSerializer(data=request.data)
         if serializer.is_valid():
+            ob = serializer.object
+            ob.usuario = request.user
             serializer.save()
             return Response(serializer.errors, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

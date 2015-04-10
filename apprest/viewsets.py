@@ -1,36 +1,50 @@
-from .models import Contacto, Telefono, TipoTelefono, Evento, ListaContacto , Usuario
-from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer,\
-    EventoSerializer, ListaContactoSerializer , UsuarioSerializer
+from django.contrib.auth.models import User
+from .models import Contacto, Telefono, TipoTelefono, Evento, ListaContacto
+from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer, EventoSerializer, ListaContactoSerializer , UserSerializer
 from rest_framework import viewsets
 
 
-class ContactoViewSet(viewsets.ModelViewSet):
-    serializer_class = ContactoSerializer
-    queryset = Contacto.objects.all()
-
-
-class TelefonoViewSet(viewsets.ModelViewSet):
-    serializer_class = TelefonoSerializer
-    queryset = Telefono.objects.all()
-
-
-class TipoTelefonoViewSet(viewsets.ModelViewSet):
-    serializer_class = TipoTelefonoSerializer
-    queryset = TipoTelefono.objects.all()
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    lookup_field = 'id'
 
 
 class EventoViewSet(viewsets.ModelViewSet):
     serializer_class = EventoSerializer
     queryset = Evento.objects.all()
+    lookup_field = 'id'
 
 
 class ListaContactoViewSet(viewsets.ModelViewSet):
     serializer_class = ListaContactoSerializer
     queryset = ListaContacto.objects.all()
+    lookup_field = 'id'
 
-class UsuarioViewSet(viewsets.ModelViewSet):
-    serializer_class = UsuarioSerializer
-    queryset = Usuario.objects.all()
+    def list(self, request, *args, **kwargs):
+        print request.user
+        return super(ListaContactoViewSet,self).list(request,*args,**kwargs)
+
+
+
+class ContactoViewSet(viewsets.ModelViewSet):
+    serializer_class = ContactoSerializer
+    queryset = Contacto.objects.all()
+    lookup_field = 'id'
+
+
+class TelefonoViewSet(viewsets.ModelViewSet):
+    serializer_class = TelefonoSerializer
+    queryset = Telefono.objects.all()
+    lookup_field = 'id'
+
+
+class TipoTelefonoViewSet(viewsets.ModelViewSet):
+    serializer_class = TipoTelefonoSerializer
+    queryset = TipoTelefono.objects.all()
+    lookup_field = 'id'
+
+
 
 
 

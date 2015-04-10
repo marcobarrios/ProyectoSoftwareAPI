@@ -1,13 +1,13 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Contacto, Telefono, TipoTelefono, ListaContacto, Evento , Usuario
+from .models import Contacto, Telefono, TipoTelefono, ListaContacto, Evento
 
-
-class UsuarioSerializer(serializers.ModelSerializer):
-    #owner = serializers.Field('owner.username')
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model  = Usuario
-        #fields = ('nombre', 'apellido','owner',)
-        fields = ('nombre', 'apellido',)
+        model = User
+        fields = ('id','username','first_name','last_name','email',)
+        write_only_fields = ('password ',)
+
 
 class ListaContactoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,7 +36,8 @@ class TipoTelefonoSerializer(serializers.ModelSerializer):
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
-        fields = ('id', 'nombre', 'ubicacion', 'fechaInicio', 'fechaFin',)
+        fields = ('id', 'nombre', 'ubicacion', 'fechaInicio', 'fechaFin', 'todoDia','usuario',)
+        read_only_fields = ('usuario',)        
 
 
 
