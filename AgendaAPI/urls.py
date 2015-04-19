@@ -10,10 +10,10 @@ router = DefaultRouter()
 
 router.register(r'usuarios', UserViewSet)
 router.register(r'evento', EventoViewSet)
-router.register(r'listacontacto', ListaContactoViewSet)
+#router.register(r'listacontacto', ListaContactoViewSet)
 router.register(r'contacto', ContactoViewSet)
 router.register(r'telefono', TelefonoViewSet)
-router.register(r'tipotelefono', TipoTelefonoViewSet)
+#router.register(r'tipotelefono', TipoTelefonoViewSet)
 
 
 

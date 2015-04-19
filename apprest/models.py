@@ -12,13 +12,21 @@ class ListaContacto(models.Model):
 
 
 class Contacto(models.Model):
+    LISTA_CONTACTO = (
+        ('1', 'Familia'),
+        ('2', 'Amigos'),
+        ('3', 'Trabajo'),
+    )
+
+    usuario = models.ForeignKey(User)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50, null=True)
     correo = models.EmailField(null=True)
     fechaNacimiento = models.DateField(null=True)
     imagen = models.ImageField(upload_to="contacto", null=True)
     web = models.URLField(null=True)
-    listaContacto = models.ManyToManyField(ListaContacto)
+    listaContacto = models.CharField(max_length=1, choices=LISTA_CONTACTO)
+
 
 
     def __unicode__(self):

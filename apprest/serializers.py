@@ -18,7 +18,7 @@ class ListaContactoSerializer(serializers.ModelSerializer):
 class ContactoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contacto
-        fields = ('id', 'nombre', 'apellido', 'correo', 'fechaNacimiento', 'imagen', 'web','listaContacto',)
+        fields = ('id', 'usuario', 'nombre', 'apellido', 'correo', 'fechaNacimiento', 'imagen', 'web','listaContacto',)
 
 
 class TelefonoSerializer(serializers.ModelSerializer):
