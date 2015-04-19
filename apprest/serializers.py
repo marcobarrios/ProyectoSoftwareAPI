@@ -37,7 +37,7 @@ class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
         fields = ('id', 'nombre', 'ubicacion', 'fechaInicio', 'fechaFin', 'todoDia','usuario',)
-        read_only_fields = ('usuario',)        
+#        read_only_fields = ('usuario',)
 
 
 

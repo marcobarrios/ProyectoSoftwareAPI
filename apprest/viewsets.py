@@ -39,7 +39,6 @@ class ContactoViewSet(viewsets.ModelViewSet):
     queryset = Contacto.objects.all()
     lookup_field = 'id'
 
-
 class TelefonoViewSet(viewsets.ModelViewSet):
     serializer_class = TelefonoSerializer
     queryset = Telefono.objects.all()

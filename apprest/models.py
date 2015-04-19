@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class ListaContacto(models.Model):
     usuario = models.ForeignKey(User)
     nombreLista = models.CharField(max_length=50)
@@ -19,6 +20,7 @@ class Contacto(models.Model):
     web = models.URLField(null=True)
     listaContacto = models.ManyToManyField(ListaContacto)
 
+
     def __unicode__(self):
         return self.nombre
 
@@ -31,9 +33,16 @@ class TipoTelefono(models.Model):
 
 
 class Telefono(models.Model):
+    TIPO_TELEFONO = (
+        ('1', 'Celular'),
+        ('2', 'Casa'),
+        ('3', 'Trabajo'),
+    )
+
+
     telefono = models.TextField()
     contacto = models.ForeignKey(Contacto)
-    tipoTelefono = models.ForeignKey(TipoTelefono)
+    tipoTelefono = models.CharField(max_length=1, choices=TIPO_TELEFONO)
 
     def __unicode__(self):
         return self.telefono
