@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from rest_framework import status
+#from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
+#from rest_framework.response import Response
 from .models import Contacto, Telefono, TipoTelefono, Evento, ListaContacto
 from .serializers import ContactoSerializer, TelefonoSerializer, TipoTelefonoSerializer, EventoSerializer, ListaContactoSerializer , UserSerializer
 from rest_framework import viewsets
@@ -15,9 +15,9 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
 
     def post_save(self, obj, created=False):
-        hash = md5_crypt.encrypt(obj.password)
+        obj.password = md5_crypt.encrypt(obj.password)
         if created:
-            obj.set_password(hash)
+            obj.set_password(obj.password)
             obj.save()
 
     def get_permissions(self):
