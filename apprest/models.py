@@ -59,9 +59,9 @@ class Telefono(models.Model):
 class Evento(models.Model):
     usuario = models.ForeignKey(User)
     nombre = models.TextField(max_length=100)
-    ubicacion = models.TextField(max_length=100)
+    descripcion = models.TextField(null=True)
     fechaInicio = models.DateTimeField()
-    fechaFin = models.DateTimeField()
+    fechaFin = models.DateTimeField(null=True)
     todoDia = models.BooleanField(default=False)
 
     def __unicode__(self):

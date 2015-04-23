@@ -45,7 +45,7 @@ class TipoTelefonoSerializer(serializers.ModelSerializer):
 class EventoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evento
-        fields = ('id', 'nombre', 'ubicacion', 'fechaInicio', 'fechaFin', 'todoDia','usuario',)
+        fields = ('id', 'nombre', 'descripcion', 'todoDia', 'fechaInicio', 'fechaFin', )
 #        read_only_fields = ('usuario',)
 
 

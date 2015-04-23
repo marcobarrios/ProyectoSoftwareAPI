@@ -72,8 +72,8 @@ class TelefonoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         query = self.request.QUERY_PARAMS
         queryset = self.queryset
-        if 'id' in query.keys():
-            queryset = queryset.filter( contacto = Contacto.objects.get(id =query.get('id')))
+        if 'contacto' in query.keys():
+            queryset = queryset.filter( contacto = Contacto.objects.get(id =query.get('contacto')))
         if 'tipo_telefono' in query.keys():
             queryset = queryset.filter( tipoTelefono = query.get('tipo_telefono'))
         return queryset
