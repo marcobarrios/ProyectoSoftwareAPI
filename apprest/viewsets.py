@@ -30,6 +30,9 @@ class EventoViewSet(viewsets.ModelViewSet):
     queryset = Evento.objects.all()
     lookup_field = 'id'
 
+    def perform_create(self, serialised):
+        serialised.save(usuario=self.request.user)
+
     def get_queryset(self):
         queryset = self.queryset.filter(usuario = self.request.user)
         return queryset
