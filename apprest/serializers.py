@@ -11,6 +11,17 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id','first_name','last_name','email', 'username', 'password', )
         write_only_fields = ('password ',)
 
+        extra_kwargs = {'password': {'write_only': True}}
+
+        def create(self, validated_data):
+            user = User(
+                email=validated_data['email'],
+                username=validated_data['username']
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+            return user
+
         def restore_object(self, attrs, instance=None):
             user = super(UserSerializer,self).restore_object(attrs, instance)
             hash = md5_crypt.encrypt(attrs['password'])

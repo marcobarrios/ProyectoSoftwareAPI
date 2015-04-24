@@ -15,7 +15,6 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
 
     def post_save(self, obj, created=False):
-        obj.password = md5_crypt.encrypt(obj.password)
         if created:
             obj.set_password(obj.password)
             obj.save()
